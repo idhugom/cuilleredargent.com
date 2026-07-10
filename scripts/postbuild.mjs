@@ -34,6 +34,14 @@ async function writeHeaders() {
   Cache-Control: public, max-age=0, must-revalidate
   X-Content-Type-Options: nosniff
 
+# Données rafraîchies à chaque déploiement (évite un index de recherche périmé)
+/search-index.json
+  Cache-Control: public, max-age=0, must-revalidate
+/sitemap.xml
+  Cache-Control: public, max-age=3600
+/rss.xml
+  Cache-Control: public, max-age=3600
+
 /_astro/*
   Cache-Control: public, max-age=31536000, immutable
 
