@@ -1,0 +1,220 @@
+---
+import type { Block } from '../../lib/data';
+interface Props { blocks: Block[]; }
+const { blocks } = Astro.props;
+
+function slugify(s: string): string {
+  return s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '')
+    .replace(/[^a-z0-9\s-]/g, '').trim().replace(/\s+/g, '-').slice(0, 60);
+}
+const calloutIcon: Record<string, string> = {
+  info: 'ⓘ', tip: '✦', warning: '▲', key: '◆',
+};
+const calloutLabel: Record<string, string> = {
+  info: 'À savoir', tip: 'Le conseil', warning: 'Attention', key: 'L\'essentiel',
+};
+---
+<div class="prose" data-article-body>
+  {blocks.map((b) => {
+    switch (b.type) {
+      case 'lead':
+        return <p class="lead" set:html={b.html} />;
+      case 'paragraph':
+        return <p set:html={b.html} />;
+      case 'heading': {
+        const id = b.id || slugify(b.text);
+        return b.level === 3
+          ? <h3 id={id} class="h-anchor">{b.text}</h3>
+          : <h2 id={id} class="h-anchor">{b.text}</h2>;
+      }
+      case 'list':
+        return b.style === 'number'
+          ? <ol>{b.items.map((it) => <li set:html={it} />)}</ol>
+          : <ul>{b.items.map((it) => <li set:html={it} />)}</ul>;
+      case 'quote':
+        return (
+          <blockquote>
+            <p set:html={b.html} />
+            {b.cite && <cite>{b.cite}</cite>}
+          </blockquote>
+        );
+      case 'callout':
+        return (
+          <aside class={`callout callout--${b.variant}`}>
+            <span class="callout__icon" aria-hidden="true">{calloutIcon[b.variant] ?? '◆'}</span>
+            <div class="callout__body">
+              <p class="callout__title">{b.title || calloutLabel[b.variant]}</p>
+              <div set:html={b.html} />
+            </div>
+          </aside>
+        );
+      case 'stats':
+        return (
+          <div class="stats">
+            {b.items.map((s) => (
+              <div class="stats__item">
+                <span class="stats__value chrome-text">{s.value}</span>
+                <span class="stats__label">{s.label}</span>
+              </div>
+            ))}
+          </div>
+        );
+      case 'steps':
+        return (
+          <ol class="steps">
+            {b.items.map((s) => (
+              <li class="steps__item">
+                <span class="steps__title">{s.title}</span>
+                <div class="steps__body" set:html={s.html} />
+              </li>
+            ))}
+          </ol>
+        );
+      case 'table':
+        return (
+          <figure class="table-wrap">
+            <div class="table-scroll">
+              <table>
+                <thead><tr>{b.headers.map((h) => <th set:html={h} />)}</tr></thead>
+                <tbody>
+                  {b.rows.map((r) => <tr>{r.map((c) => <td set:html={c} />)}</tr>)}
+                </tbody>
+              </table>
+            </div>
+            {b.caption && <figcaption>{b.caption}</figcaption>}
+          </figure>
+        );
+      case 'comparison':
+        return (
+          <div class="compare">
+            {b.title && <p class="compare__title">{b.title}</p>}
+            <div class="compare__cols">
+              {b.columns.map((col) => (
+                <div class={`compare__col compare__col--${col.tone || 'neutral'}`}>
+                  <p class="compare__head">{col.heading}</p>
+                  <ul>{col.points.map((p) => <li set:html={p} />)}</ul>
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+      default:
+        return null;
+    }
+  })}
+</div>
+
+<style>
+  .prose { font-size: var(--step-0); line-height: 1.75; color: var(--ink-soft); }
+  .prose > * + * { margin-top: 1.35em; }
+  .prose h2, .prose h3 { color: var(--ink); scroll-margin-top: 90px; }
+  .prose h2 { font-size: var(--step-3); margin-top: 2.4em; line-height: 1.05; }
+  .prose h3 { font-size: var(--step-2); margin-top: 1.8em; }
+  .h-anchor { position: relative; }
+  .h-anchor::before {
+    content: ''; position: absolute; left: -1.1rem; top: 0.12em; width: 4px; height: 0.9em;
+    background: var(--accent); border-radius: 2px; transform: scaleY(0); transform-origin: top;
+    transition: transform 0.5s var(--ease);
+  }
+  .prose h2.h-anchor { --show: 1; }
+  .prose h2.h-anchor::before { transform: scaleY(1); }
+
+  .prose a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+  .prose a:hover { text-decoration-thickness: 2px; }
+  .prose strong { font-weight: 600; color: var(--ink); }
+  .prose code {
+    font-family: ui-monospace, 'SFMono-Regular', Menlo, monospace; font-size: 0.88em;
+    background: var(--paper-2); padding: 0.12em 0.4em; border-radius: 4px;
+  }
+  .prose ul, .prose ol { padding-left: 1.4em; }
+  .prose li + li { margin-top: 0.5em; }
+  .prose ul li::marker { color: var(--accent); }
+  .prose ol li::marker { color: var(--muted); font-variant-numeric: tabular-nums; }
+
+  .lead {
+    font-family: var(--font-display); font-size: var(--step-2); line-height: 1.35;
+    color: var(--ink); font-weight: 400; letter-spacing: -0.01em;
+  }
+
+  blockquote {
+    border-left: 3px solid var(--accent); padding: 0.2em 0 0.2em 1.4em; margin-left: 0;
+    font-family: var(--font-display); font-size: var(--step-2); font-style: italic; color: var(--ink);
+    line-height: 1.35;
+  }
+  blockquote cite { display: block; margin-top: 0.6em; font-size: var(--step--1); font-style: normal; color: var(--muted); font-family: var(--font-sans); }
+
+  /* Encadrés / mises en avant */
+  .callout {
+    display: grid; grid-template-columns: auto 1fr; gap: 1rem; align-items: start;
+    background: var(--card); border: 1px solid var(--line);
+    border-left: 3px solid var(--accent);
+    border-radius: var(--radius-lg); padding: 1.25rem 1.4rem;
+    box-shadow: 0 1px 0 rgba(255,255,255,0.6) inset, 0 12px 30px -24px rgba(11,11,14,0.5);
+  }
+  .callout__icon { font-size: 1.1rem; color: var(--accent); line-height: 1.6; }
+  .callout__title { font-weight: 600; color: var(--ink); margin-bottom: 0.25em; font-size: var(--step--1); letter-spacing: 0.02em; }
+  .callout__body :is(p, ul, ol) { margin: 0; }
+  .callout__body > * + * { margin-top: 0.6em; }
+  .callout--info { border-left-color: var(--silver-4); }
+  .callout--info .callout__icon { color: var(--silver-4); }
+  .callout--warning { border-left-color: #c9821f; background: #fdf6ea; }
+  .callout--warning .callout__icon { color: #c9821f; }
+  .callout--key { border-left-color: var(--accent); background: var(--accent-wash); }
+
+  /* Statistiques mises en avant */
+  .stats {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1px;
+    background: var(--line); border: 1px solid var(--line); border-radius: var(--radius-lg); overflow: hidden;
+  }
+  .stats__item { background: var(--card); padding: 1.4rem 1.2rem; text-align: center; }
+  .stats__value { display: block; font-family: var(--font-display); font-size: clamp(1.6rem, 1.2rem + 1.4vw, 2.4rem); line-height: 1.02; font-weight: 500; overflow-wrap: break-word; hyphens: auto; }
+  .stats__label { display: block; margin-top: 0.5rem; font-size: var(--step--2); color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; }
+
+  /* Étapes */
+  .steps { list-style: none; padding: 0; counter-reset: step; }
+  .steps__item { position: relative; padding-left: 3.2rem; padding-bottom: 1.4rem; }
+  .steps__item::before {
+    counter-increment: step; content: counter(step, decimal-leading-zero);
+    position: absolute; left: 0; top: -0.1em; font-family: var(--font-display); font-style: italic;
+    font-size: 1.5rem; color: var(--accent); width: 2.4rem; text-align: center;
+  }
+  .steps__item::after {
+    content: ''; position: absolute; left: 1.2rem; top: 2rem; bottom: 0; width: 1px; background: var(--line);
+  }
+  .steps__item:last-child::after { display: none; }
+  .steps__title { display: block; font-weight: 600; color: var(--ink); margin-bottom: 0.3em; }
+  .steps__body { margin: 0; }
+  .steps__body :is(p, ul) { margin: 0; }
+
+  /* Tableaux */
+  .table-wrap { margin-block: 1.6em; }
+  .table-scroll { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--radius-lg); }
+  table { width: 100%; border-collapse: collapse; font-size: var(--step--1); min-width: 460px; }
+  thead { background: var(--ink); color: var(--paper); }
+  th, td { text-align: left; padding: 0.8rem 1rem; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { font-family: var(--font-sans); font-weight: 600; letter-spacing: 0.02em; font-size: var(--step--2); text-transform: uppercase; }
+  tbody tr:nth-child(even) { background: color-mix(in srgb, var(--paper-2) 55%, transparent); }
+  tbody tr:last-child td { border-bottom: 0; }
+  .table-wrap figcaption { margin-top: 0.7em; font-size: var(--step--2); color: var(--muted); text-align: center; }
+
+  /* Comparaison 2 colonnes */
+  .compare { margin-block: 1.8em; }
+  .compare__title { font-family: var(--font-display); font-size: var(--step-1); margin-bottom: 0.9rem; color: var(--ink); }
+  .compare__cols { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .compare__col {
+    background: var(--card); border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 1.2rem 1.3rem;
+    border-top: 3px solid var(--silver-3);
+  }
+  .compare__col--pos { border-top-color: #3f9d6b; }
+  .compare__col--neg { border-top-color: #c0553a; }
+  .compare__head { font-weight: 600; color: var(--ink); margin-bottom: 0.7rem; font-size: var(--step-0); }
+  .compare__col ul { list-style: none; padding: 0; margin: 0; }
+  .compare__col li { position: relative; padding-left: 1.4rem; margin-bottom: 0.55em; font-size: var(--step--1); }
+  .compare__col li::before { content: '›'; position: absolute; left: 0; color: var(--accent); font-weight: 700; }
+  .compare__col--pos li::before { content: '✓'; color: #3f9d6b; }
+  .compare__col--neg li::before { content: '✕'; color: #c0553a; }
+
+  @media (max-width: 640px) {
+    .compare__cols { grid-template-columns: 1fr; }
+  }
+</style>

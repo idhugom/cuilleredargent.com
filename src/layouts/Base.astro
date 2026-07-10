@@ -1,0 +1,110 @@
+---
+import '@fontsource-variable/fraunces';
+import '@fontsource-variable/space-grotesk';
+import '../styles/global.css';
+import { ClientRouter } from 'astro:transitions';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Meta from '../components/Meta.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  canonical: string;
+  ogImage?: string | null;
+  type?: 'website' | 'article';
+  published?: string;
+  modified?: string;
+  jsonLd?: object | object[];
+  bodyClass?: string;
+}
+const { title, description, canonical, ogImage, type, published, modified, jsonLd, bodyClass = '' } = Astro.props;
+---
+<!doctype html>
+<html lang="fr" class="no-js">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0b0b0e" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="alternate" type="application/rss+xml" title="Cuillère d'argent" href="/rss.xml" />
+    <link rel="sitemap" href="/sitemap.xml" />
+    <script is:inline>document.documentElement.classList.remove('no-js');document.documentElement.classList.add('js');</script>
+    <Meta {title} {description} {canonical} {ogImage} {type} {published} {modified} {jsonLd} />
+    <ClientRouter />
+  </head>
+  <body class={bodyClass}>
+    <a href="#contenu" class="skip">Aller au contenu</a>
+    <div class="cursor-dot" aria-hidden="true" id="cursor"></div>
+    <Header />
+    <main id="contenu">
+      <slot />
+    </main>
+    <Footer />
+
+    <script>
+      // Révélations au scroll + curseur métallique. Réinitialisé à chaque navigation
+      // (View Transitions d'Astro) via l'événement astro:page-load.
+      function initReveal() {
+        const els = document.querySelectorAll('[data-reveal]:not(.is-in)');
+        if (!('IntersectionObserver' in window) || !els.length) {
+          els.forEach((el) => el.classList.add('is-in'));
+          return;
+        }
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); }
+          });
+        }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+        els.forEach((el) => io.observe(el));
+      }
+
+      function initCursor() {
+        const dot = document.getElementById('cursor');
+        if (!dot || !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+        let x = innerWidth / 2, y = innerHeight / 2, cx = x, cy = y, raf = 0;
+        const move = (e: MouseEvent) => { x = e.clientX; y = e.clientY; dot.style.opacity = '1'; };
+        const loop = () => {
+          cx += (x - cx) * 0.18; cy += (y - cy) * 0.18;
+          dot.style.transform = `translate(${cx}px, ${cy}px) translate(-50%, -50%)`;
+          raf = requestAnimationFrame(loop);
+        };
+        window.addEventListener('mousemove', move, { passive: true });
+        const hoverables = 'a, button, [data-hover]';
+        document.addEventListener('mouseover', (e) => {
+          if ((e.target as Element)?.closest?.(hoverables)) dot.classList.add('is-hover');
+        });
+        document.addEventListener('mouseout', (e) => {
+          if ((e.target as Element)?.closest?.(hoverables)) dot.classList.remove('is-hover');
+        });
+        cancelAnimationFrame(raf); loop();
+      }
+
+      function initProgress() {
+        const bar = document.querySelector<HTMLElement>('[data-progress]');
+        const article = document.querySelector<HTMLElement>('[data-article-body]');
+        if (!bar || !article) return;
+        const onScroll = () => {
+          const rect = article.getBoundingClientRect();
+          const total = rect.height - innerHeight;
+          const passed = Math.min(Math.max(-rect.top, 0), Math.max(total, 1));
+          bar.style.transform = `scaleX(${total > 0 ? passed / total : 0})`;
+        };
+        onScroll();
+        window.addEventListener('scroll', onScroll, { passive: true });
+      }
+
+      function init() { initReveal(); initCursor(); initProgress(); }
+      document.addEventListener('astro:page-load', init);
+    </script>
+
+    <style>
+      .skip {
+        position: absolute; left: 1rem; top: -3rem; z-index: 10000;
+        background: var(--ink); color: var(--paper); padding: 0.6rem 1rem; border-radius: 6px;
+        transition: top 0.2s;
+      }
+      .skip:focus { top: 1rem; }
+    </style>
+  </body>
+</html>

@@ -1,0 +1,118 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base
+  title="Rechercher · Cuillère d'argent"
+  description="Trouvez un guide, une enquête ou un décryptage parmi tous les articles de Cuillère d'argent."
+  canonical="/recherche"
+>
+  <section class="srch container">
+    <header class="srch__head">
+      <p class="eyebrow eyebrow--accent" data-reveal>Recherche</p>
+      <h1 data-reveal style="--reveal-delay:80ms">Que cherchez-vous&nbsp;?</h1>
+      <div class="srch__field" data-reveal style="--reveal-delay:160ms">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+          <circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21" stroke-linecap="round"/>
+        </svg>
+        <input id="q" type="search" placeholder="tapis de voiture, Office, Kilimandjaro…" autocomplete="off" aria-label="Rechercher" />
+        <button id="clear" type="button" aria-label="Effacer" hidden>✕</button>
+      </div>
+      <p class="srch__status" id="status" aria-live="polite"></p>
+    </header>
+    <div class="srch__results" id="results"></div>
+  </section>
+
+  <script>
+    interface Item { t: string; u: string; e: string; g: string[]; d: string; r: number; img: string | null; }
+    let INDEX: Item[] = [];
+
+    function norm(s: string) {
+      return s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+    }
+    function fmt(iso: string) {
+      try { return new Intl.DateTimeFormat('fr-FR', { day: 'numeric', month: 'short', year: 'numeric' }).format(new Date(iso)); }
+      catch { return ''; }
+    }
+    function score(it: Item, terms: string[]) {
+      const hay = norm(it.t + ' ' + it.e + ' ' + it.g.join(' '));
+      const title = norm(it.t);
+      let s = 0;
+      for (const term of terms) {
+        if (!hay.includes(term)) return 0;
+        if (title.includes(term)) s += 3;
+        else s += 1;
+        if (title.startsWith(term)) s += 2;
+      }
+      return s;
+    }
+    function render(items: Item[], q: string) {
+      const box = document.getElementById('results')!;
+      const status = document.getElementById('status')!;
+      if (!q) {
+        status.textContent = `${INDEX.length} articles au catalogue`;
+        box.innerHTML = '';
+        return;
+      }
+      status.textContent = items.length ? `${items.length} résultat${items.length > 1 ? 's' : ''} pour « ${q} »` : `Aucun résultat pour « ${q} »`;
+      box.innerHTML = items.map((it) => `
+        <a class="res" href="${it.u}">
+          ${it.img ? `<img class="res__img" src="${it.img}" width="80" height="53" loading="lazy" alt="" />` : '<span class="res__img res__img--empty"></span>'}
+          <span class="res__body">
+            <span class="res__title">${it.t}</span>
+            <span class="res__meta">${it.g[0] ? `<em>${it.g[0]}</em> · ` : ''}${fmt(it.d)} · ${it.r} min</span>
+          </span>
+          <span class="res__arrow">→</span>
+        </a>`).join('');
+    }
+    function search(q: string) {
+      const terms = norm(q).split(/\s+/).filter(Boolean);
+      if (!terms.length) return render([], '');
+      const out = INDEX.map((it) => ({ it, s: score(it, terms) }))
+        .filter((x) => x.s > 0).sort((a, b) => b.s - a.s || +new Date(b.it.d) - +new Date(a.it.d))
+        .slice(0, 40).map((x) => x.it);
+      render(out, q);
+    }
+
+    async function initSearch() {
+      const input = document.getElementById('q') as HTMLInputElement | null;
+      if (!input) return;
+      const clear = document.getElementById('clear') as HTMLButtonElement;
+      if (!INDEX.length) {
+        try { INDEX = await (await fetch('/search-index.json')).json(); } catch {}
+      }
+      const params = new URLSearchParams(location.search);
+      const q0 = params.get('q');
+      if (q0) { input.value = q0; }
+      const run = () => { const q = input.value.trim(); clear.hidden = !q; search(q); };
+      input.addEventListener('input', run);
+      clear.addEventListener('click', () => { input.value = ''; input.focus(); run(); });
+      input.focus();
+      run();
+    }
+    document.addEventListener('astro:page-load', initSearch);
+  </script>
+</Base>
+
+<style>
+  .srch { padding-top: clamp(2rem, 5vw, 4rem); min-height: 70vh; }
+  .srch__head { max-width: 44rem; }
+  .srch__head h1 { font-size: var(--step-6); line-height: 0.95; letter-spacing: -0.03em; margin: 0.4rem 0 1.6rem; }
+  .srch__field { display: flex; align-items: center; gap: 0.8rem; border-bottom: 2px solid var(--ink); padding: 0.7rem 0.2rem; }
+  .srch__field svg { color: var(--muted); flex: none; }
+  .srch__field input { flex: 1; border: 0; background: transparent; font-family: var(--font-display); font-size: var(--step-2); outline: none; }
+  .srch__field input::placeholder { color: var(--silver-3); }
+  #clear { border: 0; background: transparent; cursor: pointer; color: var(--muted); font-size: 1rem; }
+  .srch__status { margin-top: 1rem; color: var(--muted); font-size: var(--step--1); }
+  .srch__results { margin-top: 2rem; display: flex; flex-direction: column; }
+  .res { display: grid; grid-template-columns: 80px 1fr auto; gap: 1.1rem; align-items: center; padding: 1rem 0; border-top: 1px solid var(--line); transition: padding-left 0.3s var(--ease); }
+  .res:last-child { border-bottom: 1px solid var(--line); }
+  .res:hover { padding-left: 0.6rem; }
+  .res__img { border-radius: 6px; object-fit: cover; width: 80px; height: 53px; }
+  .res__img--empty { background: var(--chrome-soft); }
+  .res__title { font-family: var(--font-display); font-size: var(--step-1); line-height: 1.15; display: block; }
+  .res:hover .res__title { color: var(--accent); }
+  .res__meta { font-size: var(--step--2); color: var(--muted); }
+  .res__meta em { color: var(--accent); font-style: normal; text-transform: uppercase; letter-spacing: 0.08em; }
+  .res__arrow { color: var(--muted); transition: transform 0.3s; }
+  .res:hover .res__arrow { transform: translateX(4px); color: var(--accent); }
+</style>

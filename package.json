@@ -1,0 +1,25 @@
+{
+  "name": "cuilleredargent",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Cuillère d'argent — magazine généraliste. Moteur éditorial Astro.",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build && node scripts/postbuild.mjs",
+    "preview": "astro preview",
+    "fetch:wp": "node scripts/fetch-wp.mjs",
+    "fetch:images": "node scripts/fetch-images.mjs",
+    "gen:sample": "node scripts/gen-sample.mjs",
+    "batch:build": "node scripts/build-batch.mjs",
+    "batch:poll": "node scripts/poll-batch.mjs",
+    "batch:integrate": "node scripts/integrate-batch.mjs"
+  },
+  "dependencies": {
+    "@astrojs/rss": "^4.0.11",
+    "@fontsource-variable/fraunces": "^5.2.5",
+    "@fontsource-variable/space-grotesk": "^5.2.5",
+    "astro": "^5.13.0",
+    "sharp": "^0.34.2"
+  }
+}

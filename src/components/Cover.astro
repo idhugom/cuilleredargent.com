@@ -1,0 +1,71 @@
+---
+// Image à la une responsive avec blur-up (LQIP) et dimensions explicites (CLS = 0).
+import type { ImageData } from '../lib/data';
+interface Props {
+  image: ImageData | null;
+  alt: string;
+  sizes?: string;
+  loading?: 'lazy' | 'eager';
+  fetchpriority?: 'high' | 'auto';
+  class?: string;
+  ratio?: string; // ex "3 / 2" ; si absent, ratio naturel
+}
+const { image, alt, sizes = '(max-width: 700px) 100vw, 700px', loading = 'lazy', fetchpriority = 'auto', class: className = '', ratio } = Astro.props;
+const b = image?.base;
+const style = [
+  image?.lqip ? `--lqip:url(${image.lqip})` : '',
+  ratio ? `aspect-ratio:${ratio}` : '',
+].filter(Boolean).join(';');
+---
+{b ? (
+  <span class={`cover ${className}`} style={style} data-cover>
+    <img
+      src={`${b}-800.webp`}
+      srcset={`${b}-400.webp 400w, ${b}-800.webp 800w, ${b}-1280.webp 1280w`}
+      sizes={sizes}
+      width={image!.w}
+      height={image!.h}
+      alt={alt || image!.alt || ''}
+      loading={loading}
+      fetchpriority={fetchpriority}
+      decoding="async"
+      onload="this.parentElement?.setAttribute('data-loaded','')"
+    />
+  </span>
+) : (
+  <span class={`cover cover--empty ${className}`} style={ratio ? `aspect-ratio:${ratio}` : ''} aria-hidden="true"></span>
+)}
+
+<style>
+  .cover {
+    display: block;
+    position: relative;
+    overflow: hidden;
+    background-color: var(--paper-3);
+    background-image: var(--lqip);
+    background-size: cover;
+    background-position: center;
+    isolation: isolate;
+  }
+  .cover::before {
+    /* voile chrome subtil au repos */
+    content: '';
+    position: absolute; inset: 0; z-index: 2;
+    background: linear-gradient(160deg, rgba(255,255,255,0.06), rgba(11,11,14,0.06));
+    pointer-events: none;
+  }
+  .cover img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transform: scale(1.04);
+    transition: opacity 0.8s var(--ease), transform 1.2s var(--ease);
+  }
+  .cover[data-loaded] img { opacity: 1; transform: scale(1); }
+  .cover--empty {
+    background: var(--chrome-soft);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .cover img { transition: opacity 0.3s; transform: none; }
+  }
+</style>

@@ -1,0 +1,89 @@
+---
+// En-tête éditorial : wordmark chromé, navigation, recherche. Sticky avec voile.
+const nav = [
+  { href: '/', label: 'Une' },
+  { href: '/articles', label: 'Le magazine' },
+  { href: '/a-propos', label: 'À propos' },
+];
+const path = Astro.url.pathname;
+---
+<header class="hdr" data-header>
+  <div class="hdr__inner container-wide">
+    <a href="/" class="brand" aria-label="Cuillère d'argent — accueil">
+      <svg class="brand__mark" viewBox="0 0 24 40" width="16" height="26" aria-hidden="true">
+        <defs>
+          <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#fff"/><stop offset=".4" stop-color="#c9ccd2"/>
+            <stop offset=".7" stop-color="#7d838d"/><stop offset="1" stop-color="#eef0f3"/>
+          </linearGradient>
+        </defs>
+        <ellipse cx="12" cy="9" rx="8" ry="9" fill="url(#g)"/>
+        <rect x="10" y="16" width="4" height="22" rx="2" fill="url(#g)"/>
+      </svg>
+      <span class="brand__name">Cuillère <em>d'argent</em></span>
+    </a>
+
+    <nav class="hdr__nav" aria-label="Navigation principale">
+      {nav.map((n) => (
+        <a href={n.href} class={`hdr__link ${path === n.href ? 'is-active' : ''}`}>{n.label}</a>
+      ))}
+    </nav>
+
+    <a href="/recherche" class="hdr__search" data-hover aria-label="Rechercher">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6">
+        <circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21" stroke-linecap="round"/>
+      </svg>
+      <span>Rechercher</span>
+    </a>
+  </div>
+</header>
+
+<style>
+  .hdr {
+    position: sticky; top: 0; z-index: 100;
+    backdrop-filter: saturate(1.4) blur(10px);
+    -webkit-backdrop-filter: saturate(1.4) blur(10px);
+    background: color-mix(in srgb, var(--paper) 78%, transparent);
+    border-bottom: 1px solid var(--line);
+  }
+  .hdr__inner {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 1.5rem; height: 68px;
+  }
+  .brand { display: inline-flex; align-items: center; gap: 0.55rem; }
+  .brand__mark { filter: drop-shadow(0 1px 1px rgba(0,0,0,.25)); transition: transform 0.6s var(--ease); }
+  .brand:hover .brand__mark { transform: rotate(-12deg) translateY(-1px); }
+  .brand__name {
+    font-family: var(--font-display);
+    font-size: 1.28rem; font-weight: 520; letter-spacing: -0.02em; line-height: 1;
+    font-variation-settings: 'opsz' 100, 'WONK' 1;
+  }
+  .brand__name em { font-style: italic; color: var(--muted); font-weight: 420; }
+
+  .hdr__nav { display: flex; gap: 1.6rem; margin-left: auto; }
+  .hdr__link {
+    font-size: var(--step--1); font-weight: 500; color: var(--ink-soft);
+    position: relative; padding: 0.3rem 0;
+  }
+  .hdr__link::after {
+    content: ''; position: absolute; left: 0; bottom: -2px; height: 1.5px; width: 100%;
+    background: var(--accent); transform: scaleX(0); transform-origin: left; transition: transform 0.35s var(--ease);
+  }
+  .hdr__link:hover::after, .hdr__link.is-active::after { transform: scaleX(1); }
+
+  .hdr__search {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    font-size: var(--step--1); font-weight: 500;
+    border: 1px solid var(--line-strong); border-radius: 100px; padding: 0.5rem 0.95rem;
+    transition: background 0.35s var(--ease), color 0.35s var(--ease), border-color 0.35s;
+  }
+  .hdr__search:hover { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+
+  @media (max-width: 720px) {
+    .hdr__inner { height: 60px; gap: 0.8rem; }
+    .hdr__nav { display: none; }
+    .hdr__search span { display: none; }
+    .hdr__search { padding: 0.5rem; }
+    .brand__name { font-size: 1.12rem; }
+  }
+</style>

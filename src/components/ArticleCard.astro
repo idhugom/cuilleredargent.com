@@ -1,0 +1,97 @@
+---
+import Cover from './Cover.astro';
+import { formatDate, type Article } from '../lib/data';
+interface Props {
+  article: Article;
+  variant?: 'feature' | 'default' | 'compact' | 'text';
+  index?: number;
+  eager?: boolean;
+}
+const { article, variant = 'default', index, eager = false } = Astro.props;
+const a = article;
+const tag = a.tags?.[0];
+const sizes = variant === 'feature'
+  ? '(max-width: 900px) 100vw, 60vw'
+  : '(max-width: 700px) 100vw, (max-width: 1100px) 50vw, 33vw';
+---
+<article class={`card card--${variant}`} data-reveal data-hover>
+  <a href={a.url} class="card__link" aria-label={a.title}>
+    {variant !== 'text' && (
+      <div class="card__media">
+        <Cover
+          image={a.image}
+          alt={a.title}
+          sizes={sizes}
+          ratio={variant === 'feature' ? '16 / 10' : '3 / 2'}
+          loading={eager ? 'eager' : 'lazy'}
+          fetchpriority={eager ? 'high' : 'auto'}
+          class="card__cover"
+        />
+        <span class="card__sheen" aria-hidden="true"></span>
+      </div>
+    )}
+    <div class="card__body">
+      <div class="card__meta">
+        {typeof index === 'number' && <span class="card__num">{String(index + 1).padStart(2, '0')}</span>}
+        {tag && <span class="card__tag">{tag}</span>}
+        <span class="card__time">{a.readingTime} min</span>
+      </div>
+      <h3 class="card__title">{a.title}</h3>
+      {(variant === 'feature' || variant === 'text') && a.excerpt && (
+        <p class="card__dek">{a.excerpt}</p>
+      )}
+      <span class="card__date">{formatDate(a.date)}</span>
+    </div>
+  </a>
+</article>
+
+<style>
+  .card { position: relative; }
+  .card__link { display: block; height: 100%; }
+  .card__media { position: relative; overflow: hidden; border-radius: var(--radius-lg); }
+  .card__cover { transition: transform 0.9s var(--ease); }
+  .card__link:hover .card__cover { transform: scale(1.05); }
+  .card__sheen {
+    position: absolute; inset: 0; z-index: 3; pointer-events: none;
+    background: linear-gradient(115deg, transparent 40%, rgba(255,255,255,0.35) 50%, transparent 60%);
+    background-size: 250% 100%; background-position: 120% 0;
+    transition: background-position 0.9s var(--ease);
+    mix-blend-mode: screen;
+  }
+  .card__link:hover .card__sheen { background-position: -30% 0; }
+
+  .card__body { padding-top: 1rem; }
+  .card__meta {
+    display: flex; align-items: center; gap: 0.7rem; margin-bottom: 0.6rem;
+    font-size: var(--step--2);
+  }
+  .card__num { font-family: var(--font-display); font-style: italic; color: var(--accent); font-size: 1rem; }
+  .card__tag {
+    text-transform: uppercase; letter-spacing: 0.16em; font-weight: 600; color: var(--ink-soft);
+    border: 1px solid var(--line-strong); padding: 0.2em 0.6em; border-radius: 100px;
+  }
+  .card__time { color: var(--muted); margin-left: auto; }
+  .card__title {
+    font-size: var(--step-1); line-height: 1.08; letter-spacing: -0.015em;
+    transition: color 0.3s;
+  }
+  .card__link:hover .card__title { color: var(--accent); }
+  .card__dek { margin-top: 0.6rem; color: var(--muted); font-size: var(--step--1); }
+  .card__date { display: block; margin-top: 0.7rem; font-size: var(--step--2); color: var(--muted); }
+
+  /* Feature */
+  .card--feature .card__title { font-size: var(--step-3); }
+  .card--feature .card__meta { font-size: var(--step--1); }
+
+  /* Compact : petite vignette + titre en ligne */
+  .card--compact .card__link { display: grid; grid-template-columns: 96px 1fr; gap: 1rem; align-items: center; }
+  .card--compact .card__media { border-radius: 8px; }
+  .card--compact .card__body { padding-top: 0; }
+  .card--compact .card__title { font-size: var(--step-0); }
+  .card--compact .card__dek { display: none; }
+
+  /* Texte seul : liste éditoriale numérotée */
+  .card--text { border-top: 1px solid var(--line); padding-top: 1.2rem; }
+  .card--text .card__title { font-size: var(--step-2); }
+  .card--text .card__link:hover .card__title { color: var(--accent); }
+</style>

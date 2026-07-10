@@ -1,0 +1,21 @@
+# build
+dist/
+.astro/
+
+# deps
+node_modules/
+
+# logs / os
+*.log
+.DS_Store
+
+# secrets / local env
+.env
+.env.*
+.dev.vars
+
+# batch working files (les résultats intégrés vont dans data/content, versionnés)
+data/batch/*.jsonl
+data/batch/*.raw.json
+!data/batch/.gitkeep
+scratch-shots/

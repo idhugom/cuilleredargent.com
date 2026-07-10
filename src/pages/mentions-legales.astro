@@ -1,0 +1,29 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base
+  title="Mentions légales · Cuillère d'argent"
+  description="Mentions légales et informations sur l'éditeur du magazine Cuillère d'argent."
+  canonical="/mentions-legales"
+>
+  <section class="legal container">
+    <h1 data-reveal>Mentions légales</h1>
+    <div class="legal__body">
+      <h2>Éditeur</h2>
+      <p>Le site <strong>cuilleredargent.com</strong> est un magazine généraliste édité à titre indépendant. Pour toute demande, contactez la rédaction via le formulaire du site.</p>
+      <h2>Hébergement</h2>
+      <p>Le site est hébergé par Cloudflare, Inc. — 101 Townsend St, San Francisco, CA 94107, États-Unis.</p>
+      <h2>Propriété intellectuelle</h2>
+      <p>L'ensemble des contenus (textes, visuels, mise en page) est protégé par le droit d'auteur. Toute reproduction sans autorisation est interdite.</p>
+      <h2>Données personnelles</h2>
+      <p>Ce site ne collecte pas de données personnelles à des fins commerciales. Aucune inscription n'est requise pour lire les articles.</p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .legal { padding-top: clamp(2rem, 5vw, 4rem); max-width: 44rem; }
+  .legal h1 { font-size: var(--step-5); letter-spacing: -0.03em; margin-bottom: 2rem; }
+  .legal__body h2 { font-size: var(--step-2); margin: 2rem 0 0.6rem; }
+  .legal__body p { color: var(--ink-soft); }
+</style>

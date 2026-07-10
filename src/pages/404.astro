@@ -1,0 +1,29 @@
+---
+import Base from '../layouts/Base.astro';
+import Mercury from '../components/Mercury.astro';
+---
+<Base
+  title="Page introuvable · Cuillère d'argent"
+  description="La page que vous cherchez n'existe pas ou a été déplacée."
+  canonical="/404"
+>
+  <section class="nf container">
+    <Mercury class="nf__merc" />
+    <p class="eyebrow eyebrow--accent">Erreur 404</p>
+    <h1 class="nf__title chrome-text">Fondu au gris.</h1>
+    <p class="nf__dek">Cette page s'est évaporée comme une goutte de mercure. Mais tout le reste vous attend.</p>
+    <div class="nf__actions">
+      <a href="/" class="btn btn--accent">Retour à la une</a>
+      <a href="/recherche" class="btn">Rechercher</a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .nf { min-height: 78vh; display: grid; place-content: center; text-align: center; position: relative; padding-block: 4rem; }
+  .nf__merc { position: absolute; inset: 0; margin: auto; width: min(60vw, 30rem); opacity: 0.28; z-index: 0; pointer-events: none; }
+  .nf > :not(.nf__merc) { position: relative; z-index: 1; }
+  .nf__title { font-size: var(--step-7); line-height: 0.9; letter-spacing: -0.04em; margin: 0.6rem 0 1rem; }
+  .nf__dek { max-width: 40ch; margin: 0 auto 2rem; color: var(--ink-soft); font-size: var(--step-1); }
+  .nf__actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+</style>

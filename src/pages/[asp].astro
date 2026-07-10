@@ -1,0 +1,195 @@
+---
+import Base from '../layouts/Base.astro';
+import Blocks from '../components/blocks/Blocks.astro';
+import Toc from '../components/Toc.astro';
+import Faq from '../components/Faq.astro';
+import Cover from '../components/Cover.astro';
+import ArticleCard from '../components/ArticleCard.astro';
+import { getAllArticles, getRelated, formatDate } from '../lib/data';
+
+export function getStaticPaths() {
+  return getAllArticles().map((article) => ({
+    params: { asp: article.asp },
+    props: { article },
+  }));
+}
+
+const { article: a } = Astro.props;
+const related = getRelated(a, 3);
+const site = 'https://www.cuilleredargent.com';
+const url = site + a.url;
+const ogImage = a.image ? `${a.image.base}-1280.webp` : null;
+
+const jsonLd: object[] = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: a.title,
+    description: a.metaDescription,
+    datePublished: a.date,
+    dateModified: a.modified || a.date,
+    inLanguage: 'fr-FR',
+    mainEntityOfPage: url,
+    image: ogImage ? [site + ogImage] : undefined,
+    author: { '@type': 'Organization', name: "Cuillère d'argent" },
+    publisher: {
+      '@type': 'Organization', name: "Cuillère d'argent",
+      logo: { '@type': 'ImageObject', url: `${site}/favicon.svg` },
+    },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Accueil', item: site + '/' },
+      { '@type': 'ListItem', position: 2, name: 'Le magazine', item: site + '/articles' },
+      { '@type': 'ListItem', position: 3, name: a.title, item: url },
+    ],
+  },
+];
+if (a.faq.length) {
+  jsonLd.push({
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: a.faq.map((f) => ({
+      '@type': 'Question', name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a.replace(/<[^>]+>/g, '') },
+    })),
+  });
+}
+---
+<Base
+  title={a.metaTitle}
+  description={a.metaDescription}
+  canonical={a.url}
+  ogImage={ogImage}
+  type="article"
+  published={a.date}
+  modified={a.modified}
+  jsonLd={jsonLd}
+  bodyClass="page-article"
+>
+  <div class="progress" aria-hidden="true"><span data-progress></span></div>
+
+  <article class="art">
+    <header class="art__head container">
+      <nav class="crumbs" aria-label="Fil d'Ariane">
+        <a href="/">Accueil</a><span>/</span><a href="/articles">Le magazine</a>
+      </nav>
+      <div class="art__meta">
+        {a.tags[0] && <span class="art__tag">{a.tags[0]}</span>}
+        <span>{formatDate(a.date)}</span>
+        <span class="dot" aria-hidden="true"></span>
+        <span>{a.readingTime} min de lecture</span>
+      </div>
+      <h1 class="art__title" transition:name={`t-${a.id}`}>{a.title}</h1>
+      {a.excerpt && <p class="art__dek">{a.excerpt}</p>}
+    </header>
+
+    {a.image && (
+      <figure class="art__hero container-wide" data-reveal>
+        <Cover image={a.image} alt={a.title} sizes="(max-width: 1100px) 100vw, 1100px" ratio="16 / 9" loading="eager" fetchpriority="high" class="art__cover" />
+      </figure>
+    )}
+
+    <div class="art__grid container">
+      <aside class="art__aside">
+        <div class="art__sticky">
+          {a.keyTakeaways.length > 0 && (
+            <div class="takeaways">
+              <p class="takeaways__title">L'essentiel</p>
+              <ul>{a.keyTakeaways.map((t) => <li>{t}</li>)}</ul>
+            </div>
+          )}
+          <Toc blocks={a.blocks} />
+          <div class="share">
+            <p class="share__label">Partager</p>
+            <div class="share__row">
+              <a class="share__btn" href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`} target="_blank" rel="noopener" aria-label="Partager sur Facebook">f</a>
+              <a class="share__btn" href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent(a.title)}`} target="_blank" rel="noopener" aria-label="Partager sur X">𝕏</a>
+              <a class="share__btn" href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`} target="_blank" rel="noopener" aria-label="Partager sur LinkedIn">in</a>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <div class="art__content">
+        <Blocks blocks={a.blocks} />
+
+        {a.sources.length > 0 && (
+          <div class="sources">
+            <p class="sources__title">Pour aller plus loin</p>
+            <ul>
+              {a.sources.map((s) => (
+                <li>{s.url ? <a href={s.url} target="_blank" rel="noopener" class="link-ul">{s.label}</a> : s.label}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        <Faq items={a.faq} />
+      </div>
+    </div>
+  </article>
+
+  {related.length > 0 && (
+    <section class="related container-wide">
+      <div class="related__head" data-reveal>
+        <p class="eyebrow eyebrow--accent">À lire aussi</p>
+        <h2>Dans le même esprit</h2>
+      </div>
+      <div class="related__grid">
+        {related.map((r, i) => <ArticleCard article={r} index={i} />)}
+      </div>
+    </section>
+  )}
+</Base>
+
+<style>
+  .progress { position: fixed; top: 0; left: 0; right: 0; height: 3px; z-index: 200; background: transparent; }
+  .progress span { display: block; height: 100%; background: var(--accent); transform: scaleX(0); transform-origin: left; will-change: transform; }
+
+  .art__head { max-width: 62rem; padding-top: clamp(2rem, 5vw, 4rem); }
+  .crumbs { display: flex; gap: 0.6rem; font-size: var(--step--2); color: var(--muted); margin-bottom: 1.6rem; }
+  .crumbs a:hover { color: var(--accent); }
+  .art__meta { display: flex; align-items: center; gap: 0.8rem; font-size: var(--step--1); color: var(--muted); margin-bottom: 1.2rem; flex-wrap: wrap; }
+  .art__tag { text-transform: uppercase; letter-spacing: 0.16em; font-weight: 600; color: var(--accent); }
+  .dot { width: 3px; height: 3px; border-radius: 50%; background: currentColor; }
+  .art__title { font-size: var(--step-5); line-height: 1.0; letter-spacing: -0.025em; }
+  .art__dek { margin-top: 1.4rem; font-family: var(--font-display); font-size: var(--step-2); line-height: 1.35; color: var(--ink-soft); font-weight: 380; max-width: 40ch; }
+
+  .art__hero { margin-top: clamp(2rem, 5vw, 3.5rem); }
+  .art__hero .art__cover { border-radius: var(--radius-lg); box-shadow: 0 40px 80px -50px rgba(11,11,14,0.6); }
+
+  .art__grid {
+    display: grid; grid-template-columns: minmax(0, 15rem) minmax(0, 44rem); gap: clamp(2rem, 5vw, 5rem);
+    justify-content: center; margin-top: clamp(2.5rem, 5vw, 4rem);
+  }
+  .art__sticky { position: sticky; top: 96px; display: flex; flex-direction: column; gap: 2rem; }
+  .takeaways { background: var(--accent-wash); border-radius: var(--radius-lg); padding: 1.3rem 1.4rem; }
+  .takeaways__title { font-family: var(--font-sans); font-size: var(--step--2); letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent-deep); font-weight: 700; margin-bottom: 0.8rem; }
+  .takeaways ul { list-style: none; padding: 0; margin: 0; }
+  .takeaways li { position: relative; padding-left: 1.3rem; margin-bottom: 0.6em; font-size: var(--step--1); line-height: 1.5; }
+  .takeaways li::before { content: '◆'; position: absolute; left: 0; color: var(--accent); font-size: 0.7em; top: 0.3em; }
+
+  .share__label, .sources__title { font-family: var(--font-sans); font-size: var(--step--2); letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); font-weight: 600; margin-bottom: 0.8rem; }
+  .share__row { display: flex; gap: 0.5rem; }
+  .share__btn { display: grid; place-items: center; width: 38px; height: 38px; border: 1px solid var(--line-strong); border-radius: 50%; font-size: 0.9rem; transition: background 0.3s, color 0.3s, border-color 0.3s; }
+  .share__btn:hover { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+
+  .sources { margin-top: 3rem; padding: 1.5rem 1.6rem; border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--card); }
+  .sources ul { margin: 0; padding-left: 1.2rem; }
+  .sources li { margin-bottom: 0.5em; font-size: var(--step--1); }
+
+  .related { margin-top: clamp(3.5rem, 7vw, 6rem); }
+  .related__head { margin-bottom: 2rem; }
+  .related__head h2 { font-size: var(--step-3); margin-top: 0.4rem; }
+  .related__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(1.4rem, 3vw, 2.4rem); }
+
+  @media (max-width: 900px) {
+    .art__grid { grid-template-columns: 1fr; }
+    .art__aside { order: 2; }
+    .art__sticky { position: static; }
+    .related__grid { grid-template-columns: 1fr; }
+  }
+</style>

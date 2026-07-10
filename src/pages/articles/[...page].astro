@@ -1,0 +1,50 @@
+---
+import type { GetStaticPaths, PaginateFunction } from 'astro';
+import Base from '../../layouts/Base.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import { getAllArticles } from '../../lib/data';
+
+export const getStaticPaths: GetStaticPaths = ({ paginate }: { paginate: PaginateFunction }) => {
+  return paginate(getAllArticles(), { pageSize: 18 });
+};
+
+const { page } = Astro.props;
+const canonical = page.currentPage === 1 ? '/articles' : `/articles/${page.currentPage}`;
+---
+<Base
+  title={page.currentPage === 1 ? "Le magazine — tous les articles · Cuillère d'argent" : `Le magazine — page ${page.currentPage} · Cuillère d'argent`}
+  description="Tous les guides, enquêtes et décryptages de Cuillère d'argent : maison, tech, auto, voyage, finances et bien plus."
+  canonical={canonical}
+>
+  <section class="arch container-wide">
+    <header class="arch__head">
+      <p class="eyebrow eyebrow--accent" data-reveal>Le magazine</p>
+      <h1 data-reveal style="--reveal-delay:80ms">Tout explorer</h1>
+      <p class="arch__count" data-reveal style="--reveal-delay:160ms">
+        {page.total} article{page.total > 1 ? 's' : ''} · page {page.currentPage} sur {page.lastPage}
+      </p>
+    </header>
+
+    <div class="arch__grid">
+      {page.data.map((a, i) => <ArticleCard article={a} index={(page.currentPage - 1) * 18 + i} eager={i < 3} />)}
+    </div>
+
+    <nav class="pager" aria-label="Pagination">
+      {page.url.prev ? <a href={page.url.prev} class="btn">← Précédent</a> : <span></span>}
+      <span class="pager__mid">{page.currentPage} / {page.lastPage}</span>
+      {page.url.next ? <a href={page.url.next} class="btn">Suivant →</a> : <span></span>}
+    </nav>
+  </section>
+</Base>
+
+<style>
+  .arch { padding-top: clamp(2rem, 5vw, 4rem); }
+  .arch__head { margin-bottom: clamp(2rem, 5vw, 3.5rem); }
+  .arch__head h1 { font-size: var(--step-6); line-height: 0.95; letter-spacing: -0.03em; margin: 0.4rem 0; }
+  .arch__count { color: var(--muted); font-size: var(--step--1); }
+  .arch__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(1.6rem, 3vw, 2.6rem) clamp(1.6rem, 3vw, 2.4rem); }
+  .pager { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-top: clamp(3rem, 6vw, 5rem); }
+  .pager__mid { font-family: var(--font-display); font-style: italic; color: var(--muted); }
+  @media (max-width: 900px) { .arch__grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 560px) { .arch__grid { grid-template-columns: 1fr; } }
+</style>

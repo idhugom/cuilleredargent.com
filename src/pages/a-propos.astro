@@ -1,0 +1,53 @@
+---
+import Base from '../layouts/Base.astro';
+import { CATALOG_TOTAL, getAllArticles } from '../lib/data';
+const published = getAllArticles().length;
+---
+<Base
+  title="À propos · Cuillère d'argent"
+  description="Cuillère d'argent est un magazine généraliste indépendant : des guides et décryptages soignés, un contenu 100% original, une expérience de lecture rapide et sans bruit."
+  canonical="/a-propos"
+>
+  <section class="about container">
+    <header class="about__head">
+      <p class="eyebrow eyebrow--accent" data-reveal>La maison</p>
+      <h1 data-reveal style="--reveal-delay:80ms">Un magazine qui prend le temps de bien dire.</h1>
+    </header>
+    <div class="about__body">
+      <p class="lead" data-reveal>
+        Cuillère d'argent explore le quotidien sous toutes ses coutures — la maison, la tech,
+        l'automobile, les finances, le voyage — avec une seule obsession : produire un contenu
+        réellement utile, vérifié et agréable à lire.
+      </p>
+      <p data-reveal>
+        Nous avons tourné la page des usines à contenu. Chaque article est repensé pour répondre
+        précisément à votre intention de recherche : l'essentiel en un coup d'œil, des comparatifs
+        clairs, des tableaux, des réponses aux questions que vous vous posez vraiment.
+      </p>
+      <div class="about__stats" data-reveal>
+        <div><span class="chrome-text">{CATALOG_TOTAL}</span><small>sujets au catalogue</small></div>
+        <div><span class="chrome-text">{published}</span><small>articles publiés</small></div>
+        <div><span class="chrome-text">∞</span><small>curiosité</small></div>
+      </div>
+      <p data-reveal>
+        Le site est bâti sur un moteur éditorial maison, pensé pour la vitesse : pages statiques,
+        images optimisées, zéro superflu. Rien entre vous et la lecture.
+      </p>
+      <div class="about__cta" data-reveal>
+        <a href="/articles" class="btn btn--accent">Explorer le magazine</a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .about { padding-top: clamp(2rem, 5vw, 4rem); }
+  .about__head { max-width: 40rem; margin-bottom: clamp(2rem, 5vw, 3.5rem); }
+  .about__head h1 { font-size: var(--step-6); line-height: 0.95; letter-spacing: -0.03em; margin-top: 0.5rem; }
+  .about__body { max-width: 44rem; font-size: var(--step-1); line-height: 1.6; }
+  .about__body > * + * { margin-top: 1.6rem; }
+  .about__body .lead { font-family: var(--font-display); font-size: var(--step-2); line-height: 1.35; }
+  .about__stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin: 2.5rem 0; padding: 2rem 0; border-block: 1px solid var(--line); }
+  .about__stats span { font-family: var(--font-display); font-size: var(--step-4); line-height: 1; display: block; }
+  .about__stats small { color: var(--muted); font-size: var(--step--2); text-transform: uppercase; letter-spacing: 0.1em; }
+</style>
