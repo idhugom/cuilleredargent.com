@@ -19,3 +19,7 @@ data/batch/*.jsonl
 data/batch/*.raw.json
 !data/batch/.gitkeep
 scratch-shots/
+
+# wrangler local state
+.wrangler/
+data/batch/*.log
