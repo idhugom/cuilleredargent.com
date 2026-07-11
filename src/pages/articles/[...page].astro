@@ -5,7 +5,7 @@ import ArticleCard from '../../components/ArticleCard.astro';
 import { getAllArticles } from '../../lib/data';
 
 export const getStaticPaths: GetStaticPaths = ({ paginate }: { paginate: PaginateFunction }) => {
-  return paginate(getAllArticles(), { pageSize: 18 });
+  return paginate(getAllArticles(), { pageSize: 54 });
 };
 
 const { page } = Astro.props;
@@ -26,7 +26,7 @@ const canonical = page.currentPage === 1 ? '/articles' : `/articles/${page.curre
     </header>
 
     <div class="arch__grid">
-      {page.data.map((a, i) => <ArticleCard article={a} index={(page.currentPage - 1) * 18 + i} eager={i < 3} />)}
+      {page.data.map((a, i) => <ArticleCard article={a} index={(page.currentPage - 1) * 54 + i} eager={i < 3} />)}
     </div>
 
     <nav class="pager" aria-label="Pagination">
