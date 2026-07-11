@@ -59,10 +59,9 @@ async function writeHeaders() {
 }
 
 async function writeRedirects() {
-  // Redirection apex → www (301). Inactif sur *.pages.dev, actif dès rattachement du domaine.
-  const content = `# apex → www (canonique)
-https://cuilleredargent.com/* https://www.cuilleredargent.com/:splat 301!
-http://cuilleredargent.com/* https://www.cuilleredargent.com/:splat 301!
+  // La redirection apex → www est gérée par functions/_middleware.js (host-based),
+  // car _redirects ne matche que le chemin, pas le hostname, sur Cloudflare Pages.
+  const content = `# Redirections par chemin (apex → www géré par functions/_middleware.js)
 `;
   await writeFile(join(DIST, '_redirects'), content);
 }
