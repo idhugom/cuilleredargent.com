@@ -1,0 +1,90 @@
+{
+  "title": "Riz cuit au réfrigérateur : combien de temps le garder sans risque ?",
+  "metaTitle": "Riz cuit au frigo : combien de temps sans risque ?",
+  "metaDescription": "Riz nature, riz frit ou riz à sushi : durée de conservation au réfrigérateur, règles de refroidissement et erreurs à éviter pour manger du riz réchauffé sans risque.",
+  "excerpt": "Le riz cuit se conserve moins longtemps qu'on ne le pense : refroidi trop lentement ou gardé trop de jours, il devient l'un des aliments les plus souvent en cause dans les intoxications alimentaires domestiques.",
+  "readingTime": 9,
+  "tags": ["Cuisine", "Bien-être"],
+  "keyTakeaways": [
+    "Refroidissez le riz cuit en moins de deux heures, jamais en le laissant toute une nuit sur le plan de travail.",
+    "Conservez-le au réfrigérateur (4 °C ou moins) et consommez-le dans les 24 à 48 heures.",
+    "La toxine responsable des intoxications au riz résiste à la cuisson et au réchauffage : un riz qui sent bon n'est pas forcément sûr.",
+    "Ne réchauffez le riz qu'une seule fois, à cœur, et jetez les restes non consommés après ce réchauffage.",
+    "En cas de doute sur le temps de conservation ou l'odeur, mieux vaut jeter que risquer une intoxication."
+  ],
+  "blocks": [
+    { "type": "lead", "html": "Un riz cuit refroidi correctement et placé rapidement au réfrigérateur se garde en principe <strong>24 à 48 heures</strong>, pas davantage. Passé ce délai, ou si le riz est resté trop longtemps à température ambiante avant d'être réfrigéré, le risque d'intoxication alimentaire augmente nettement, même si l'aliment n'a ni mauvaise odeur ni mauvais goût." },
+    { "type": "heading", "level": 2, "text": "Pourquoi le riz cuit est-il un aliment particulièrement sensible ?" },
+    { "type": "paragraph", "html": "Le riz cru héberge naturellement des spores d'une bactérie appelée <strong>Bacillus cereus</strong>. Ces spores survivent à la cuisson, car elles résistent à la chaleur. Le problème ne vient donc pas de la cuisson elle-même, mais de ce qui se passe <em>après</em> : si le riz cuit reste plusieurs heures à température ambiante, les spores germent et la bactérie se multiplie en produisant des toxines." },
+    { "type": "paragraph", "html": "C'est cette toxine, et non la bactérie elle-même, qui rend malade. Or une toxine déjà formée n'est pas détruite par un simple réchauffage au micro-ondes ou à la poêle : c'est ce qui explique qu'un riz réchauffé « bien chaud » puisse tout de même provoquer nausées, vomissements et diarrhées quelques heures après le repas." },
+    { "type": "callout", "variant": "warning", "title": "Le réchauffage ne rend pas un riz avarié sûr", "html": "Une fois la toxine formée, aucune cuisson ne l'élimine complètement. La seule protection efficace consiste à <strong>empêcher sa formation</strong> en refroidissant et réfrigérant le riz rapidement après cuisson." },
+    { "type": "heading", "level": 2, "text": "Combien de temps garder le riz cuit au réfrigérateur ?" },
+    { "type": "paragraph", "html": "La règle la plus prudente, retenue par de nombreux services d'hygiène alimentaire, consiste à consommer le riz cuit réfrigéré dans un délai <strong>de 24 heures, jusqu'à 48 heures maximum</strong> si le refroidissement et la conservation ont été irréprochables. Ce délai est plus court que celui d'autres restes de féculents (pâtes, pommes de terre), justement à cause du risque lié à Bacillus cereus." },
+    {
+      "type": "table",
+      "caption": "Durées indicatives de conservation au réfrigérateur (4 °C ou moins)",
+      "headers": ["Type de préparation", "Délai conseillé", "Remarque"],
+      "rows": [
+        ["Riz blanc nature, bien refroidi", "24 à 48 h", "À réchauffer une seule fois, à cœur"],
+        ["Riz complet ou semi-complet", "24 à 48 h", "Même prudence que le riz blanc"],
+        ["Riz frit ou riz sauté avec légumes/œuf", "24 h maximum", "La présence d'autres ingrédients périssables réduit le délai"],
+        ["Riz utilisé pour des sushis ou makis", "Le jour même, sans réchauffage", "Préparation crue ou vinaigrée, très sensible"],
+        ["Riz laissé plus de 2 h à température ambiante avant réfrigération", "À jeter", "Le risque de formation de toxine est déjà présent"]
+      ]
+    },
+    { "type": "heading", "level": 2, "text": "Refroidir et conserver le riz correctement, étape par étape" },
+    {
+      "type": "steps",
+      "items": [
+        { "title": "Sortir le riz du feu dès la cuisson terminée", "html": "Ne le laissez pas « reposer » longtemps dans la casserole ou le cuiseur, qui maintiennent une température favorable aux bactéries." },
+        { "title": "Étaler le riz sur une surface large et peu épaisse", "html": "Un plat large et un film de riz de quelques centimètres refroidissent bien plus vite qu'un tas compact dans un grand bol." },
+        { "title": "Viser un refroidissement en moins de deux heures", "html": "Un passage rapide à l'air libre puis, si possible, un bain d'eau froide sous le récipient accélèrent la baisse de température." },
+        { "title": "Réfrigérer dans un contenant fermé", "html": "Transférez le riz encore tiède (mais plus chaud) dans une boîte hermétique et placez-la au réfrigérateur, idéalement à 4 °C ou moins." },
+        { "title": "Étiqueter avec la date de cuisson", "html": "Un simple repère écrit au marqueur évite d'oublier depuis combien de temps le riz est au frigo." },
+        { "title": "Réchauffer une seule fois, à cœur", "html": "Le riz doit être chaud sur toute son épaisseur, pas seulement en surface. Ne réchauffez jamais une seconde fois les restes déjà réchauffés." }
+      ]
+    },
+    { "type": "heading", "level": 2, "text": "Peut-on congeler le riz cuit ? Et pour combien de temps ?" },
+    { "type": "paragraph", "html": "Oui, et c'est souvent la meilleure option si vous ne comptez pas manger le riz dans les deux jours. Une fois refroidi rapidement selon la méthode ci-dessus, le riz se congèle bien en portions individuelles, à plat dans des sacs ou boîtes hermétiques. La congélation stoppe la multiplication bactérienne, même si elle ne détruit pas d'éventuelles toxines déjà formées : d'où l'importance de congeler un riz refroidi <em>correctement et rapidement</em>, pas un riz resté toute une nuit dehors." },
+    {
+      "type": "stats",
+      "items": [
+        { "value": "1 à 2 h", "label": "délai maximal recommandé avant réfrigération après la cuisson" },
+        { "value": "24-48 h", "label": "durée conseillée de conservation au réfrigérateur" },
+        { "value": "~1 mois", "label": "ordre de grandeur raisonnable de conservation au congélateur en portions" },
+        { "value": "1 seule fois", "label": "nombre de réchauffages recommandé avant de jeter les restes" }
+      ]
+    },
+    { "type": "comparison", "title": "Riz réfrigéré vs riz congelé", "columns": [
+      { "heading": "Riz réfrigéré", "tone": "neutral", "points": [
+        "Pratique pour une consommation rapide, sous 24 à 48 h",
+        "Nécessite un contrôle strict du délai et de la température",
+        "Risque qui augmente vite si le refroidissement initial a été trop lent"
+      ] },
+      { "heading": "Riz congelé en portions", "tone": "pos", "points": [
+        "Bloque la multiplication bactérienne pendant plusieurs semaines",
+        "Idéal pour anticiper les repas sans y penser chaque jour",
+        "Doit lui aussi partir d'un riz refroidi rapidement, pas d'un riz déjà douteux"
+      ] }
+    ] },
+    { "type": "heading", "level": 2, "text": "Les erreurs les plus fréquentes à éviter" },
+    { "type": "list", "style": "bullet", "items": [
+      "Laisser la casserole de riz refroidir toute une nuit sur la cuisinière avant de la mettre au frigo.",
+      "Entasser un gros volume de riz chaud dans une boîte fermée, ce qui ralentit fortement le refroidissement à cœur.",
+      "Se fier uniquement à l'odeur ou au goût : la toxine de Bacillus cereus ne donne pas nécessairement de signe visible ou olfactif.",
+      "Réchauffer plusieurs fois de suite les mêmes restes « pour ne pas gaspiller ».",
+      "Conserver le riz plus de deux jours « parce qu'il a l'air normal »."
+    ] },
+    { "type": "callout", "variant": "key", "title": "La règle simple à retenir", "html": "<strong>Refroidir vite, réfrigérer tout de suite, manger sous 24 à 48 h, réchauffer une seule fois.</strong> En cas de doute sur l'un de ces points, il vaut mieux jeter le riz que le manger." },
+    { "type": "heading", "level": 2, "text": "Cas particulier : riz frit, riz de restaurant et plats préparés" },
+    { "type": "paragraph", "html": "Le riz frit à la maison ou rapporté d'un restaurant suit les mêmes règles, avec une prudence supplémentaire : la présence d'œuf, de viande ou de sauce dans la préparation raccourcit encore le délai de conservation raisonnable, souvent limité à 24 heures. Si le plat est resté longtemps sur un buffet ou dans une voiture chaude avant d'arriver au réfrigérateur, il est plus prudent de le considérer comme périmé, même le jour même." }
+  ],
+  "faq": [
+    { "q": "Le riz réchauffé peut-il rendre malade même s'il a bon goût ?", "a": "Oui. La toxine responsable des intoxications ne modifie pas nécessairement le goût, l'odeur ou l'aspect du riz. C'est pour cela que le respect du délai de conservation compte davantage que l'examen visuel ou olfactif." },
+    { "q": "Peut-on manger du riz cuit laissé toute une nuit à température ambiante ?", "a": "Ce n'est pas recommandé. Au-delà de deux heures à température ambiante (une heure si la pièce est très chaude), le risque de formation de toxine augmente, et une nuit entière dépasse largement ce délai de sécurité." },
+    { "q": "Le riz frit avec des légumes ou de l'œuf se conserve-t-il aussi longtemps que le riz nature ?", "a": "Non, il est préférable de le consommer dans les 24 heures. Les ingrédients ajoutés sont eux aussi périssables et réduisent la marge de sécurité par rapport à un riz blanc nature." },
+    { "q": "Combien de temps peut-on garder du riz cuit au congélateur ?", "a": "En portions bien emballées et congelées rapidement après un refroidissement correct, l'ordre de grandeur raisonnable est d'environ un mois pour une qualité optimale, à condition de décongeler et réchauffer le riz à cœur avant consommation." },
+    { "q": "Comment savoir si un riz cuit n'est plus bon à consommer ?", "a": "L'odeur et l'aspect ne suffisent pas à garantir la sécurité. Le repère le plus fiable reste le temps écoulé depuis la cuisson et les conditions de refroidissement et de conservation : au-delà de 48 h au frigo, ou en cas de doute sur le refroidissement initial, il vaut mieux jeter le riz." },
+    { "q": "Faut-il réchauffer le riz à la vapeur, au micro-ondes ou à la poêle ?", "a": "La méthode importe moins que le résultat : le riz doit être chaud à cœur sur toute son épaisseur, pas seulement en surface. Ajoutez un peu d'eau si besoin pour une chaleur homogène, et ne réchauffez qu'une seule fois." }
+  ]
+}

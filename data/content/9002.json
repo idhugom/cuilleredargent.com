@@ -1,0 +1,84 @@
+{
+  "title": "Valise cabine Ryanair et easyJet : quelle taille choisir pour ne pas payer de supplément ?",
+  "metaTitle": "Valise cabine Ryanair/easyJet : la bonne taille",
+  "metaDescription": "Petit bagage gratuit ou valise cabine payante : dimensions repères chez Ryanair et easyJet, méthode pour choisir sa valise et éviter les frais surprise à l'embarquement.",
+  "excerpt": "Chez les compagnies low-cost, tout se joue sur quelques centimètres : une valise trop grande de peu peut coûter aussi cher qu'un billet. Voici comment choisir la bonne taille et éviter les frais de dernière minute.",
+  "readingTime": 9,
+  "tags": ["Voyage", "Finances"],
+  "keyTakeaways": [
+    "Les compagnies low-cost distinguent un petit bagage gratuit (sous le siège) et une valise cabine plus grande, presque toujours payante.",
+    "Les dimensions et le prix varient selon la compagnie, la période et même le mode de réservation : vérifiez-les avant chaque vol.",
+    "Une valise trop grande de quelques centimètres seulement peut être refusée ou facturée au comptoir ou à la porte d'embarquement.",
+    "Mesurer la valise vide n'est pas suffisant : testez-la aussi une fois remplie.",
+    "En cas de doute, mieux vaut une valise volontairement plus petite que la limite affichée qu'une valise « à la limite »."
+  ],
+  "blocks": [
+    { "type": "lead", "html": "Pour ne pas payer de supplément chez une compagnie low-cost comme Ryanair ou easyJet, la règle générale consiste à emporter uniquement <strong>un petit bagage tenant sous le siège devant vous</strong> (de l'ordre de 40 x 20 x 25 cm selon les compagnies), sauf si vous avez explicitement payé une option incluant une valise cabine plus grande. Les dimensions exactes évoluent régulièrement : vérifiez-les toujours sur le site de la compagnie avant d'acheter une valise ou de vous présenter à l'aéroport." },
+    { "type": "heading", "level": 2, "text": "Deux catégories de bagages cabine bien distinctes" },
+    { "type": "paragraph", "html": "Chez la plupart des compagnies low-cost, il ne faut pas confondre deux formats différents. Le <strong>petit bagage personnel</strong> (sac à dos, sac à main, petit sac de voyage) est presque toujours inclus dans le billet de base et doit tenir sous le siège devant vous. La <strong>valise cabine</strong> plus grande, qui se range dans le compartiment au-dessus des sièges, est en revanche presque toujours une option payante, sauf sur les billets incluant déjà une formule supérieure." },
+    { "type": "paragraph", "html": "Cette distinction explique pourquoi tant de voyageurs se font surprendre : ils pensent avoir droit à une « valise cabine » alors que leur billet ne couvre que le petit bagage sous le siège. La confusion entre les deux catégories est, avec les dimensions elles-mêmes, la principale source de frais imprévus." },
+    { "type": "callout", "variant": "warning", "title": "Les règles changent régulièrement", "html": "Les dimensions, poids autorisés et tarifs des options bagages sont <strong>propres à chaque compagnie</strong> et peuvent évoluer d'une saison à l'autre. Consultez systématiquement la page bagages officielle de votre compagnie au moment de la réservation, puis à nouveau avant le départ." },
+    { "type": "heading", "level": 2, "text": "Ordres de grandeur des dimensions chez les principales low-cost" },
+    {
+      "type": "table",
+      "caption": "Repères indicatifs (à confirmer sur le site de la compagnie avant chaque vol)",
+      "headers": ["Compagnie", "Petit bagage (souvent gratuit)", "Valise cabine (souvent payante)", "Poids généralement toléré"],
+      "rows": [
+        ["Ryanair", "environ 40 x 20 x 25 cm", "environ 55 x 40 x 20 cm", "variable selon l'option choisie"],
+        ["easyJet", "environ 45 x 36 x 20 cm", "environ 56 x 45 x 25 cm (option \"Grand bagage cabine\")", "souvent sans limite de poids stricte sur le petit bagage, sous réserve de portage aisé"],
+        ["Autres compagnies low-cost", "généralement 35 à 45 cm de plus grande dimension", "généralement 50 à 56 cm de plus grande dimension", "de 7 à 10 kg en moyenne quand une limite est fixée"]
+      ]
+    },
+    { "type": "heading", "level": 2, "text": "Choisir sa valise cabine : la méthode en cinq étapes" },
+    {
+      "type": "steps",
+      "items": [
+        { "title": "Vérifier les dimensions exactes avant d'acheter une valise", "html": "Consultez la page bagages du site officiel de votre compagnie plutôt que de vous fier à la mention « cabine » sur l'étiquette d'un magasin." },
+        { "title": "Identifier la catégorie couverte par votre billet", "html": "Vérifiez si votre tarif inclut uniquement le petit bagage sous le siège ou aussi une valise cabine plus grande." },
+        { "title": "Mesurer la valise, poignées et roues comprises", "html": "Les gabarits des aéroports incluent souvent les roulettes et poignées : une valise « limite » peut ne pas passer une fois ces éléments comptés." },
+        { "title": "Tester le gabarit une fois la valise remplie", "html": "Une valise souple ou légèrement extensible peut dépasser les dimensions une fois pleine, même si elle rentrait vide dans le gabarit." },
+        { "title": "Peser le bagage si une limite de poids s'applique", "html": "Une balance de voyage à quelques euros évite une pesée surprise au comptoir, où chaque kilo en trop peut être facturé." }
+      ]
+    },
+    {
+      "type": "stats",
+      "items": [
+        { "value": "2", "label": "catégories de bagages cabine à distinguer : petit bagage gratuit et valise cabine payante" },
+        { "value": "qq cm", "label": "l'écart qui suffit souvent à faire refuser ou facturer une valise au comptoir" },
+        { "value": "avant le vol", "label": "moment le plus économique pour ajouter une option bagage, largement moins cher qu'à l'aéroport" }
+      ]
+    },
+    { "type": "heading", "level": 2, "text": "Petit bagage gratuit ou valise cabine payante : que choisir ?" },
+    { "type": "comparison", "title": "Petit bagage sous le siège vs valise cabine avec option payante", "columns": [
+      { "heading": "Petit bagage gratuit", "tone": "pos", "points": [
+        "Inclus dans la plupart des billets de base, sans coût supplémentaire",
+        "Format compact, idéal pour un très court séjour ou en complément d'un bagage en soute",
+        "Capacité limitée : peu adapté à un séjour de plusieurs jours avec beaucoup d'affaires"
+      ] },
+      { "heading": "Valise cabine avec option payante", "tone": "neutral", "points": [
+        "Volume nettement supérieur, suffisant pour la plupart des courts et moyens séjours",
+        "Coût variable selon la compagnie, la période et le moment de l'achat",
+        "Doit être ajoutée à l'achat du billet ou en amont du vol pour rester au meilleur prix"
+      ] }
+    ] },
+    { "type": "heading", "level": 2, "text": "Astuces pour éviter les frais surprise le jour du vol" },
+    { "type": "list", "style": "bullet", "items": [
+      "Ajoutez l'option bagage cabine dès la réservation si vous savez que le petit format ne suffira pas : les tarifs augmentent souvent à l'approche du départ.",
+      "Portez les objets lourds (chargeur, livre, trousse de toilette) sur vous ou dans les poches d'une veste si votre sac est à la limite du poids toléré.",
+      "Évitez les valises « rigides publicitaires » vendues comme cabine sans préciser la compagnie visée : les tolérances ne sont pas universelles.",
+      "En cas de doute sur la conformité de votre bagage, présentez-vous plus tôt à l'embarquement pour avoir le temps de réorganiser si besoin.",
+      "Gardez à l'esprit qu'un supplément payé au comptoir ou à la porte d'embarquement coûte presque toujours plus cher qu'une option ajoutée en ligne à l'avance."
+    ] },
+    { "type": "callout", "variant": "tip", "title": "Mieux vaut voir large que juste", "html": "Si les dimensions annoncées par le fabricant de votre valise sont <em>identiques</em> à la limite de la compagnie, considérez-la comme risquée. Une marge de sécurité de deux à trois centimètres évite bien des discussions au comptoir." },
+    { "type": "heading", "level": 2, "text": "Cas particuliers : familles, poussettes et instruments de musique" },
+    { "type": "paragraph", "html": "Les poussettes pliables et certains équipements pour bébés bénéficient souvent d'une tolérance spécifique, généralement gratuite, mais avec des conditions propres à chaque compagnie (dépôt en soute au pied de l'avion, gabarit maximal). Les instruments de musique, eux, nécessitent le plus souvent l'achat d'un siège ou d'une option dédiée s'ils dépassent les dimensions du petit bagage. Dans tous ces cas particuliers, un contact préalable avec le service client de la compagnie évite les mauvaises surprises le jour du départ." }
+  ],
+  "faq": [
+    { "q": "Que se passe-t-il si ma valise cabine est trop grande à l'embarquement ?", "a": "Le personnel peut vous demander de la faire enregistrer en soute contre un supplément, souvent plus élevé que le tarif d'une option bagage achetée en ligne à l'avance, ou refuser l'embarquement du bagage tel quel selon la politique de la compagnie." },
+    { "q": "Peut-on ajouter le petit bagage gratuit en plus d'un bagage en soute ?", "a": "Oui, en général, le petit bagage sous le siège reste inclus même lorsque vous avez payé un bagage en soute. Vérifiez toutefois les conditions de votre tarif, certaines formules très basiques pouvant fonctionner différemment." },
+    { "q": "Les tailles des bagages cabine sont-elles identiques chez toutes les compagnies low-cost ?", "a": "Non. Chaque compagnie fixe ses propres dimensions et tolérances de poids, et ces règles évoluent avec le temps. Une valise conforme chez une compagnie peut être refusée chez une autre." },
+    { "q": "Le poids du bagage cabine est-il toujours vérifié ?", "a": "Cela dépend de la compagnie et de l'aéroport. Certaines ne fixent pas de limite stricte de poids sur le petit bagage tant qu'il reste facilement portable, d'autres pèsent systématiquement les bagages au comptoir ou à la porte d'embarquement." },
+    { "q": "Comment éviter de payer un supplément bagage au dernier moment ?", "a": "Ajoutez l'option bagage cabine dès la réservation ou plusieurs jours avant le vol via votre espace client en ligne : les tarifs appliqués au comptoir ou à la porte d'embarquement sont presque toujours plus élevés." },
+    { "q": "Une valise cabine achetée dans le commerce est-elle toujours conforme ?", "a": "Pas nécessairement. La mention « valise cabine » sur une étiquette ne garantit pas la conformité avec une compagnie précise. Comparez toujours les dimensions annoncées par le fabricant aux limites publiées par la compagnie sur laquelle vous volez." }
+  ]
+}
