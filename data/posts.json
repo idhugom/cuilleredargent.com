@@ -11032,5 +11032,25 @@
     "modified": "2026-07-17T10:00:00",
     "excerpt": "Un passeport français périmé depuis moins de cinq ans reste accepté par une poignée de pays qui tolèrent cette règle, à condition de voyager aussi avec une carte d’identité valide. La liste est courte et change régulièrement : mieux vaut toujours vérifier avant de réserver.",
     "image": null
+  },
+  {
+    "id": 8107,
+    "slug": "oeufs-date-peremption-depassee-test-eau-encore-bons",
+    "asp": "oeufs-date-peremption-depassee-test-eau-encore-bons.asp",
+    "title": "Œufs dont la date de péremption est dépassée : le test de l’eau pour savoir s’ils sont encore bons",
+    "date": "2026-07-18T09:00:00",
+    "modified": "2026-07-18T09:00:00",
+    "excerpt": "La date inscrite sur la boîte d’œufs est une date de durabilité minimale, pas un couperet : un œuf peut rester consommable plusieurs semaines après. Le test de l’eau, simple et fiable, permet de vérifier sa fraîcheur en quelques secondes avant de le cuisiner.",
+    "image": null
+  },
+  {
+    "id": 8108,
+    "slug": "cheque-non-encaisse-plusieurs-mois-encore-valable",
+    "asp": "cheque-non-encaisse-plusieurs-mois-encore-valable.asp",
+    "title": "Chèque non encaissé depuis plusieurs mois : est-il encore valable ?",
+    "date": "2026-07-18T10:00:00",
+    "modified": "2026-07-18T10:00:00",
+    "excerpt": "En France, un chèque est valable un an et huit jours à compter de sa date d’émission : passé ce délai, la banque du bénéficiaire peut refuser de l’encaisser. Mieux vaut connaître ce délai, ses conséquences et les démarches possibles avant qu’il ne soit trop tard.",
+    "image": null
   }
 ]
