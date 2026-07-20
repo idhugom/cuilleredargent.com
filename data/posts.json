@@ -11072,5 +11072,25 @@
     "modified": "2026-07-19T08:30:00",
     "excerpt": "Un casque tombé par terre, cogné contre une porte de garage ou échappé d'un porte-bagages semble souvent intact au premier coup d'œil. C'est justement ce qui le rend trompeur : la protection interne peut être compromise sans laisser la moindre marque visible à l'extérieur.",
     "image": null
+  },
+  {
+    "id": 8111,
+    "slug": "chaudiere-securite-voyant-rouge-causes-reinitialiser",
+    "asp": "chaudiere-securite-voyant-rouge-causes-reinitialiser.asp",
+    "title": "Chaudière en sécurité (voyant rouge allumé) : les causes les plus fréquentes et comment réinitialiser avant d’appeler un dépanneur",
+    "date": "2026-07-20T08:30:00",
+    "modified": "2026-07-20T08:30:00",
+    "excerpt": "Une chaudière qui se met en sécurité coupe le chauffage et l’eau chaude sans prévenir, souvent au pire moment. Avant de réserver une intervention, quelques vérifications simples permettent souvent d’identifier la cause et de relancer l’appareil en toute sécurité.",
+    "image": null
+  },
+  {
+    "id": 8112,
+    "slug": "medicament-perime-depuis-quelques-mois-danger-efficacite",
+    "asp": "medicament-perime-depuis-quelques-mois-danger-efficacite.asp",
+    "title": "Médicament périmé depuis quelques mois : est-il encore efficace, et surtout sans danger à prendre ?",
+    "date": "2026-07-20T08:30:00",
+    "modified": "2026-07-20T08:30:00",
+    "excerpt": "Retrouver une boîte de médicaments dont la date est dépassée de quelques semaines ou quelques mois pose une question fréquente : jeter ou utiliser quand même ? La réponse dépend surtout de la forme du médicament, de son stockage et de la marge réelle derrière une date de péremption.",
+    "image": null
   }
 ]
